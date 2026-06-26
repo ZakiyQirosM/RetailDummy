@@ -98,7 +98,7 @@ st.markdown("""
 # DATA GENERATION
 # ─────────────────────────────────────────────
 CUSTOMERS = ["PT ABC", "PT Maju", "CV Sukses", "PT Sejahtera"]
-PRODUCTS  = ["Earphone", "Keyboard", "Mouse", "TWS"]
+PRODUCTS  = ["Aqua", "Indomie", "Pocari", "Le Minerale"]
 SALES_REP = ["Budi", "Andi", "Rina", "Doni"]
 
 def generate_data() -> pd.DataFrame:
@@ -198,8 +198,8 @@ st.markdown('<div class="section-title">Key Performance Indicators</div>', unsaf
 
 # Row 1 — Revenue, Target, Achievement
 r1c1, r1c2, r1c3 = st.columns(3)
-kpi_card(r1c1, "💰 Omzet", f"Rp {total_revenue/1e9:.2f}B")
-kpi_card(r1c2, "🎯 Target Penjualan",  f"Rp {total_target/1e9:.2f}B")
+kpi_card(r1c1, "💰 Total Revenue", f"Rp {total_revenue/1e9:.2f}B")
+kpi_card(r1c2, "🎯 Total Target",  f"Rp {total_target/1e9:.2f}B")
 kpi_card(r1c3, "📊 Achievement",   f"{achievement:.1f}%", "vs target")
 
 # Row 2 — Top Customer, Top Product, Best Salesperson
@@ -210,7 +210,7 @@ kpi_card(r2c1, "🏆 Top Customer",
 kpi_card(r2c2, "🛍️ Top Product",
          top5_prod.index[0] if not top5_prod.empty else "N/A",
          f"Rp {top5_prod.iloc[0]/1e6:.1f}M" if not top5_prod.empty else "")
-kpi_card(r2c3, "⭐ Best Sales",
+kpi_card(r2c3, "⭐ Best Salesperson",
          best_sales,
          f"Rp {best_sales_rev/1e6:.1f}M" if not df.empty else "")
 
@@ -224,10 +224,13 @@ COMMON_LAYOUT = dict(
     paper_bgcolor="white", plot_bgcolor="#F8F9FF",
     title_font_size=14, title_font_color="#1A237E",
     margin=dict(t=45, b=25, l=10, r=10),
-    legend=dict(
-        font=dict(size=12, color="#1A237E"),
-        bgcolor="white", bordercolor="#C5CAE9", borderwidth=1,
-    ),
+)
+
+# Reusable legend style — applied per chart (not in COMMON_LAYOUT to avoid duplicate-kwarg error)
+LEGEND_STYLE = dict(
+    font=dict(size=12, color="#1A237E"),
+    title_font=dict(color="#1A237E"),
+    bgcolor="white", bordercolor="#C5CAE9", borderwidth=1,
 )
 
 st.markdown('<div class="section-title">📊 Charts & Trends</div>', unsafe_allow_html=True)
